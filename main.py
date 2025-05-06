@@ -10,6 +10,7 @@ with st.form("form"):
     telefone = st.number_input("Telefone", format="%d", step=1, min_value=0)
     data_retirada = st.date_input("Data de Retirada")
     data_devolucao = st.date_input("Data de Devolução")
+    numero_vestido = st.number_input("Número do Vestido", format="%d", step=1, min_value=0)
     observacoes = st.text_area("Observações")
     submit_button = st.form_submit_button("Enviar")
     
@@ -19,6 +20,7 @@ with st.form("form"):
             str(telefone),
             str(data_retirada),
             str(data_devolucao),
+            str(numero_vestido),
             observacoes,
             datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Timestamp
         ]
