@@ -1,5 +1,5 @@
 import streamlit as st
-from google_sheets_writer import salvar_em_planilha_google
+from google_sheets_writer import salvar_em_planilha_google, buscar_por_data
 from datetime import datetime
 
 st.title("Cadastro Vestidos 👗")
@@ -30,3 +30,26 @@ with st.form("form"):
             st.success("Dados salvos com sucesso no Google Sheets!")
         else:
             st.error("Erro ao salvar os dados.")
+
+st.header("🔍 Consultar vestidos por data")
+
+data_pesquisa = st.date_input("Selecione uma data")
+buscar = st.button("Buscar vestidos para retirada ou devolução")
+
+if buscar:
+    data_str = str(data_pesquisa)
+    resultados = buscar_por_data(data_str)
+
+    if resultados:
+        st.subheader("📋 Resultados encontrados:")
+        for item in resultados:
+            st.markdown(f"""
+            👗 Vestido nº: {item['Vestido']}  
+            👤 Cliente: {item['Nome']}  
+            📞 Telefone: {item['Telefone']}  
+            📅 Retirada: {item['Retirada']}  
+            📅 Devolução: {item['Devolução']}  
+            ---
+            """)
+    else:
+        st.warning("Nenhum vestido marcado para essa data.")
